@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Objects;
+
 public class Vertex<T> {
     private T data;
 
@@ -13,10 +15,16 @@ public class Vertex<T> {
         this.data = data;
     }
 
+
     @Override
-    public String toString() {
-        return "Vertex {data=" + data + "}";
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        Vertex<?> vertex = (Vertex<?>) object;
+        return Objects.equals(data, vertex.data);
     }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(data);
+    }
 }
