@@ -2,47 +2,48 @@ package entity;
 
 import java.util.*;
 
-public class WeightedGraph<Vertex> {
-    private Map<Vertex,List<Edge<Vertex>>> adjList;
+public class WeightedGraph<V> {
+    private Set<Vertex<V>> graph = new HashSet<>();
     private boolean undirected;
-
-    public WeightedGraph() {
-        this(true);
-    }
 
     public WeightedGraph(boolean undirected) {
         this.undirected = undirected;
     }
 
-    public void addVertex(Vertex v) {
-        if(!hasVertex(v)) {
-            return;
-        }
-
-        adjList.put(v,new LinkedList<>());
+    public WeightedGraph() {
+        this(true);
     }
 
-    public void addEdge(Vertex source, Vertex dest, double weight) {
-        if(!hasVertex(source)){
-            addVertex(source);
-        }
-        if(!hasVertex(dest)){
-            addVertex(dest);
+    public void addVertex(Vertex<V> v) {
+        graph.add(v);
+    }
+
+    public void addEdge(Vertex<V> source, Vertex<V> destination, double weight) {
+        if (!hasVertex(source)) {
+            graph.add(source);
         }
 
+        if (!hasVertex(destination)) {
+            graph.add(destination);
+        }
 
-        if(undirected) {
-            adjList.get(dest).add(new Edge<Vertex>(dest,source,weight));
+        source.addEdge(destination, weight);
+
+        if (undirected) {
+            destination.addEdge(source, weight);
         }
     }
 
-    public boolean hasVertex(Vertex v) {
-        return adjList.containsKey(v);
+    public boolean hasVertex(Vertex<V> vertex) {
+        return graph.contains(vertex);
     }
 
-    public boolean hasEdge(Vertex source, Edge dest) {
-        if(!hasVertex(source)) {return false;}
-        return adjList.get(source).contains(dest);
+    public boolean hasEdge(Vertex<V> source, Vertex<V> destination) {
+        if (!hasVertex(source) || !hasVertex(destination)) {
+            return false;
+        }
+
+        return source.getAdjacencyVertices().containsKey(destination);
     }
 
 

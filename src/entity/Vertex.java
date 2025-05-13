@@ -1,18 +1,36 @@
 package entity;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
-public class Vertex<T> {
-    private T data;
+public class Vertex<V> {
+    private V data;
+    private Map<Vertex<V>, Double> adjacencyVertices;
 
+    public Vertex(V data) {
+        this.data = data;
+        adjacencyVertices = new HashMap<>();
+    }
 
+    public void addEdge(Vertex<V> dest, double weight) {
+        adjacencyVertices.put(dest, weight);
+    }
 
-    public T getData() {
+    public V getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(V data) {
         this.data = data;
+    }
+
+    public Map<Vertex<V>, Double> getAdjacencyVertices() {
+        return adjacencyVertices;
+    }
+
+    public void setAdjacencyVertices(Map<Vertex<V>, Double> adjacencyVertices) {
+        this.adjacencyVertices = adjacencyVertices;
     }
 
 
