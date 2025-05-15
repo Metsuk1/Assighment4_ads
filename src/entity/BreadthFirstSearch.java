@@ -2,19 +2,33 @@ package entity;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
-public class BreadthFirstSearch<V> extends Search<Vertex<V>>{
+public class BreadthFirstSearch<V> extends Search<V>{
     public BreadthFirstSearch(WeightedGraph<Vertex<V>> graph,Vertex<V> source) {
-        super((Vertex<Vertex<V>>) source);
+        super(source);
 
-  //      bfs();
+        bfs(graph,source);
     }
 
 
+    private void bfs(WeightedGraph<Vertex<V>> graph, Vertex<V> start) {
+        Queue<Vertex<V>> queue = new LinkedList<>();
+        super.visited.add(start); // we marked the start point as the visited
+        queue.add(start); // adding to the queue
 
-    private void bfs(Vertex<V> current, Set<Vertex<V>> visited){
-        Queue<Vertex<V>> queue = new LinkedList<Vertex<V>>();
+        while (!queue.isEmpty()) {
+            Vertex<V> current = queue.remove(); // extract current vertex
 
+            /**
+             * We go around all the neighbors of the current vertex.
+             */
+            for (Vertex<V> neighbor : current.getAdjacencyVertices().keySet()) {
+                if (!super.visited.contains(neighbor)) {
+                    super.visited.add(neighbor);// mark as visited
+                    fromMap.put(neighbor, current); // so that the path can be restored later
+                    queue.add(neighbor); // кидаем в очередбь
+                }
+            }
+        }
     }
 }
