@@ -1,7 +1,6 @@
 package entity;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class BreadthFirstSearch<V> extends Search<V>{
     public BreadthFirstSearch(WeightedGraph<Vertex<V>> graph,Vertex<V> source) {
@@ -14,10 +13,11 @@ public class BreadthFirstSearch<V> extends Search<V>{
     private void bfs(WeightedGraph<Vertex<V>> graph, Vertex<V> start) {
         Queue<Vertex<V>> queue = new LinkedList<>();
         super.visited.add(start); // we marked the start point as the visited
+        super.fromMap.put(start,null);
         queue.add(start); // adding to the queue
 
         while (!queue.isEmpty()) {
-            Vertex<V> current = queue.remove(); // extract current vertex
+            Vertex<V> current = queue.poll(); // extract current vertex
 
             /**
              * We go around all the neighbors of the current vertex.

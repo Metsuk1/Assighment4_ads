@@ -1,8 +1,6 @@
 package entity;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Vertex<V> {
     private V data;
@@ -13,7 +11,7 @@ public class Vertex<V> {
         adjacencyVertices = new HashMap<>();
     }
 
-    public void addEdge(Vertex<V> dest, double weight) {
+    public void addAdjVertex(Vertex<V> dest, double weight) {
         adjacencyVertices.put(dest, weight);
     }
 

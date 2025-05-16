@@ -1,6 +1,5 @@
 package entity;
 
-import java.beans.VetoableChangeListener;
 import java.util.*;
 
 public class Search<V> {
@@ -28,7 +27,6 @@ public class Search<V> {
         for (Vertex<V> i = v; i != source; i = fromMap.get(i)) {
             list.push(i);
         }
-
         list.push(source);
 
         return list;
