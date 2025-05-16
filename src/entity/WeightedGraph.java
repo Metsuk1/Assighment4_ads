@@ -4,33 +4,34 @@ import java.util.*;
 
 public class WeightedGraph<V> {
     private Set<Vertex<V>> graph;
-    private boolean undirected;
+    private boolean directed;
 
-    public WeightedGraph(boolean undirected) {
-        this.undirected = undirected;
+    public WeightedGraph(boolean directed) {
+        setDirected(directed);
+        this.graph = new HashSet<>();
+
     }
 
     public WeightedGraph() {
-        this(true);
+        this(false);
     }
 
     public void addVertex(Vertex<V> v) {
         graph.add(v);
-        graph = new HashSet<>();
     }
 
     public void addEdge(Vertex<V> source, Vertex<V> destination, double weight) {
         if (!hasVertex(source)) {
-            graph.add(source);
+            addVertex(source);
         }
 
         if (!hasVertex(destination)) {
-            graph.add(destination);
+            addVertex(destination);
         }
 
         source.addAdjVertex(destination, weight);
 
-        if (undirected) {
+        if (!directed) {
             destination.addAdjVertex(source, weight);
         }
     }
@@ -56,12 +57,12 @@ public class WeightedGraph<V> {
         this.graph = graph;
     }
 
-    public boolean isUndirected() {
-        return undirected;
+    public boolean isDirected() {
+        return directed;
     }
 
-    public void setUndirected(boolean undirected) {
-        this.undirected = undirected;
+    public void setDirected(boolean directed) {
+        this.directed = directed;
     }
 
 }

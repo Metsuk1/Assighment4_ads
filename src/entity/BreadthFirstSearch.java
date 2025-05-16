@@ -3,14 +3,14 @@ package entity;
 import java.util.*;
 
 public class BreadthFirstSearch<V> extends Search<V>{
-    public BreadthFirstSearch(WeightedGraph<Vertex<V>> graph,Vertex<V> source) {
+    public BreadthFirstSearch(WeightedGraph<V> graph,Vertex<V> source) {
         super(source);
 
         bfs(graph,source);
     }
 
 
-    private void bfs(WeightedGraph<Vertex<V>> graph, Vertex<V> start) {
+    private void bfs(WeightedGraph<V> graph, Vertex<V> start) {
         Queue<Vertex<V>> queue = new LinkedList<>();
         super.visited.add(start); // we marked the start point as the visited
         super.fromMap.put(start,null);
